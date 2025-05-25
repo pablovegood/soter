@@ -1,0 +1,104 @@
+.emergencia-content {
+  position: relative;
+  padding: 20px 16px; /* margen lateral añadido */
+  font-family: 'Verdana', sans-serif;
+  background-color: #E7F0F6;
+  color: #0C0C0C;
+  z-index: 1;
+}
+
+.emergencia-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../images/fondo-soter.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15;
+  z-index: -1;
+}
+
+.titulo-emergencia {
+  text-align: center;
+  color: #2F435B;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.tiempo-restante {
+  text-align: center;
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #F6A03D;
+}
+
+.botones-emergencia {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.zona-afectada {
+  margin-bottom: 24px;
+}
+
+.zona-afectada ion-label {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 16px;
+  color: #2F435B;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+.zona-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+  border-radius: 6px;
+  max-width: 320px; /* ajusta el tamaño visible del contenedor */
+  margin-left: auto;
+  margin-right: auto;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.05);
+}
+
+
+.gravedad {
+  margin-top: 20px;
+  text-align: center; /* centrado del bloque */
+}
+
+.gravedad ion-label {
+  display: block;
+  margin-bottom: 8px;
+  font-size: 16px;
+  color: #2F435B;
+}
+
+.estrellas {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.estrella {
+  font-size: 36px; /* más grandes */
+  cursor: pointer;
+  color: #ccc;
+}
+
+.estrella.activa {
+  color: #F6A03D;
+}

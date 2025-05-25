@@ -1,0 +1,29 @@
+.eliminar-grupo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+}
+
+.grupo-tarjeta {
+  background-color: #dee3e8; /* Azul claro de Soter */
+  border-radius: 12px;
+  padding: 1rem;
+  margin: 1rem 0;
+  width: 90%;
+  max-width: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.grupo-info {
+  font-size: 15px;
+  color: #0c0c0c;
+  font-weight: 500;
+}
+
+.checkbox-right {
+  margin-left: 1rem;
+}
