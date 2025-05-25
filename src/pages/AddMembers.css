@@ -1,0 +1,126 @@
+/* Título principal */
+.add-members-title {
+  text-align: center;
+  color: #1e3a8a; /* Azul SOTER */
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  justify-content: center;
+}
+
+/* Contenedor principal */
+.add-members-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px 16px;
+  background-image: url('../images/fondo-soter.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: 'Verdana', sans-serif;
+}
+
+/* Botones superiores */
+.add-members-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* Campo de búsqueda */
+.add-members-search {
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 10px;
+  text-align: center;
+  justify-content: center;
+  --padding-start: 10px;
+  --padding-end: 10px;
+  border-radius: 6px;
+  background: #2F435B;
+  color: white;
+}
+
+/* Resultados de búsqueda */
+.add-members-results {
+  background: #1e3a8a;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  width: 100%;
+  max-width: 400px;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  justify-content: center;
+}
+
+.member-result {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  color: white;
+  text-align: center;
+  justify-content: center;
+}
+
+.member-result:hover {
+  background-color: #2F435B;
+}
+
+/* Chips de miembros */
+.add-members-tags {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 400px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+.member-tag {
+  background-color: #444;
+  color: white;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  border-radius: 12px;
+}
+
+.member-tag span {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+
+
+
+.search-results {
+  background: #1e3a8a;
+  border: 1px solid #ccc;
+  border-top: none; /* para que no haya doble borde con el input */
+  max-height: 150px;
+  overflow-y: auto;
+  width: 100%;
+  position: relative;
+  border-radius: 0 0 6px 6px; /* Redondeo solo abajo */
+}
+
+.input-group ion-input {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  text-align: center;
+  border-radius: 6px 6px 0 0; /* Redondeo solo arriba */
+  background: #2F435B;
+  color: white;
+  width: 100%;
+  margin-bottom: 0; /* SIN MARGEN para pegarlo al siguiente */
+}

@@ -29,6 +29,7 @@ const GroupDetailsPage: React.FC = () => {
   const [protectores, setProtectores] = useState<Usuario[]>([]);
   const [error, setError] = useState('');
   const [currentUserNickname, setCurrentUserNickname] = useState('');
+  const [esAdminDelGrupo, setEsAdminDelGrupo] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
@@ -47,7 +48,15 @@ const GroupDetailsPage: React.FC = () => {
         const { data: protectoresData } = await supabase.from('usuario').select('*').in('nickname', protectorNicknames);
         setProtectores(protectoresData || []);
 
-        await supabase.from('grupoadmin').select('*').eq('grupo_id', id).eq('usuario_nickname', grupo.protegido).single();
+        const usuarioLocal = JSON.parse(localStorage.getItem('user') || '{}');
+        const { data: adminData } = await supabase
+          .from('grupoadmin')
+          .select('*')
+          .eq('grupo_id', id)
+          .eq('usuario_nickname', usuarioLocal.nickname)
+          .maybeSingle();
+
+        setEsAdminDelGrupo(!!adminData);
       } catch {
         setError('Error al cargar el grupo');
       }
@@ -82,20 +91,41 @@ const GroupDetailsPage: React.FC = () => {
         <h2 className="group-title">{grupoNombre}</h2>
 
         <div className="group-buttons">
-          <IonButton className="delete-button" routerLink="/groups">VOLVER</IonButton>
-          <IonButton className="delete-button">CREAR ADMINS</IonButton>
-          <IonButton className="delete-button">AÑADIR MIEMBROS</IonButton>
-          <IonButton className="delete-button">ELIMINAR MIEMBROS</IonButton>
-       <img src={botonChatGrupal} alt="Botón chat grupal" className="chat-group-button-img" 
-  onClick={() => history.push(`/chat-grupal/${id}`)}
-/>
+          <IonButton className="delete-button" routerLink="/groups">
+            VOLVER
+          </IonButton>
 
+          <IonButton className="delete-button" disabled={!esAdminDelGrupo}>
+            CREAR ADMINS
+          </IonButton>
+
+          <IonButton
+            className="delete-button"
+            disabled={!esAdminDelGrupo}
+            routerLink={esAdminDelGrupo ? `/add-members/${id}` : undefined}
+          >
+            AÑADIR MIEMBROS
+          </IonButton>
+
+          <IonButton className="delete-button" disabled={!esAdminDelGrupo}>
+            ELIMINAR MIEMBROS
+          </IonButton>
+
+          <img
+            src={botonChatGrupal}
+            alt="Botón chat grupal"
+            className="chat-group-button-img"
+            onClick={() => history.push(`/chat-grupal/${id}`)}
+          />
         </div>
 
         {protegido && (
           <>
             <h3 className="role-title">Protegido:</h3>
-            <div className={`user-card ${protegido.nickname !== currentUserNickname ? 'clickable' : ''}`} onClick={() => protegido.nickname !== currentUserNickname && handleChat(protegido.nickname)}>
+            <div
+              className={`user-card ${protegido.nickname !== currentUserNickname ? 'clickable' : ''}`}
+              onClick={() => protegido.nickname !== currentUserNickname && handleChat(protegido.nickname)}
+            >
               {protegido.foto && <img src={protegido.foto} alt="" className="user-image" />}
               <div className="user-info">
                 <p className="name">{protegido.nombre} {protegido.apellidos}</p>
@@ -106,21 +136,25 @@ const GroupDetailsPage: React.FC = () => {
           </>
         )}
 
-       {protectores && protectores.length > 0 && (
-  <>
-    <h3 className="role-title">Protectores:</h3>
-    {protectores.map((p) => (
-      <div key={p.nickname} className={`user-card ${p.nickname !== currentUserNickname ? 'clickable' : ''}`} onClick={() => p.nickname !== currentUserNickname && handleChat(p.nickname)}>
-        {p.foto && <img src={p.foto} alt="" className="user-image" />}
-        <div className="user-info">
-          <p className="name">{p.nombre} {p.apellidos}</p>
-          <p>Teléfono: {p.telefono}</p>
-          <p>{p.fechadenacimiento ? `${calcularEdad(p.fechadenacimiento)} años` : 'Edad desconocida'}</p>
-        </div>
-      </div>
-    ))}
-  </>
-)}
+        {protectores.length > 0 && (
+          <>
+            <h3 className="role-title">Protectores:</h3>
+            {protectores.map((p) => (
+              <div
+                key={p.nickname}
+                className={`user-card ${p.nickname !== currentUserNickname ? 'clickable' : ''}`}
+                onClick={() => p.nickname !== currentUserNickname && handleChat(p.nickname)}
+              >
+                {p.foto && <img src={p.foto} alt="" className="user-image" />}
+                <div className="user-info">
+                  <p className="name">{p.nombre} {p.apellidos}</p>
+                  <p>Teléfono: {p.telefono}</p>
+                  <p>{p.fechadenacimiento ? `${calcularEdad(p.fechadenacimiento)} años` : 'Edad desconocida'}</p>
+                </div>
+              </div>
+            ))}
+          </>
+        )}
 
         <IonToast
           isOpen={!!error}

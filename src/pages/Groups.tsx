@@ -31,45 +31,45 @@ const GroupsPage: React.FC = () => {
   const [grupoProtegido, setGrupoProtegido] = useState<Grupo | null>(null);
   const [gruposProtectores, setGruposProtectores] = useState<Grupo[]>([]);
   const [error, setError] = useState('');
-  const history = useHistory();
   const [esAdmin, setEsAdmin] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     const usuario = JSON.parse(localStorage.getItem('user') || '{}');
     if (usuario.nickname) {
       fetchGrupos(usuario.nickname);
+      comprobarSiEsAdmin(usuario.nickname);
     }
   }, []);
 
-  useEffect(() => {
-    const comprobarSiEsAdmin = async () => {
-      const usuario = JSON.parse(localStorage.getItem('user') || '{}');
+  const comprobarSiEsAdmin = async (nickname: string) => {
+    const { data, error } = await supabase
+      .from('grupoadmin')
+      .select('grupo_id')
+      .eq('usuario_nickname', nickname);
 
-      const { data, error } = await supabase
-        .from('grupoadmin')
-        .select('grupo_id')
-        .eq('usuario_nickname', usuario.nickname);
+    if (error) {
+      console.error('Error comprobando si es admin:', error);
+    }
 
-      if (error) {
-        console.error('Error comprobando si es admin:', error);
-      }
-
-      setEsAdmin(!!(data && data.length > 0));
-    };
-
-    comprobarSiEsAdmin();
-  }, []);
+    setEsAdmin(!!(data && data.length > 0));
+  };
 
   const fetchGrupos = async (nickname: string) => {
     try {
-      const { data: grupoP } = await supabase
+      // Grupo donde soy protegido (solo uno)
+      const { data: gruposP } = await supabase
         .from('grupo')
         .select('id, nombre, protegido, fecha_creacion')
-        .eq('protegido', nickname)
-        .maybeSingle();
+        .eq('protegido', nickname);
 
-      setGrupoProtegido(grupoP || null);
+      if (gruposP && gruposP.length > 0) {
+        setGrupoProtegido(gruposP[0]);
+      } else {
+        setGrupoProtegido(null);
+      }
 
+      // Grupos donde soy protector (miembro)
       const { data: miembroData } = await supabase
         .from('grupomiembro')
         .select('grupo_id')
@@ -101,10 +101,7 @@ const GroupsPage: React.FC = () => {
             CREAR GRUPO
           </IonButton>
           {esAdmin && (
-            <IonButton className="soter-yellow-button"
-              routerLink="/eliminar-grupos"
-        
-            >
+            <IonButton className="soter-yellow-button" routerLink="/eliminar-grupos">
               ELIMINAR GRUPOS
             </IonButton>
           )}
@@ -136,8 +133,7 @@ const GroupsPage: React.FC = () => {
             <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '1rem' }}>
               {gruposProtectores.map((grupo) => (
                 <div key={grupo.id} className="grupo-card clickable-card" onClick={() => history.push(`/group-details/${grupo.id}`)}>
-                 <p className="grupo-nombre">{grupo.nombre}</p>
-
+                  <p className="grupo-nombre">{grupo.nombre}</p>
                   <p className="grupo-detalle">Protegido: {grupo.protegido}</p>
                 </div>
               ))}

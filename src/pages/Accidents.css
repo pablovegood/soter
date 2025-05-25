@@ -1,0 +1,44 @@
+.accident-page {
+  padding: 16px;
+  font-family: 'Verdana', sans-serif;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.accident-title {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  color: #1e3a8a;
+  margin-bottom: 24px;
+}
+
+.accident-subtitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #2F435B;
+  margin: 16px 0 8px 0;
+  padding-left: 8px;
+}
+
+.accident-card {
+  margin: 8px auto;
+  width: 90%;
+  max-width: 500px;
+  background: rgba(255, 255, 255, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.accident-card ion-card-title {
+  color: #2F435B;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.accident-card ion-card-content {
+  font-size: 15px;
+  color: #333;
+  line-height: 1.4;
+}

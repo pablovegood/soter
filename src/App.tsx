@@ -20,7 +20,8 @@ import PrivateChat from './pages/PrivateChat';
 import EnviarEmergencia from './pages/EnviarEmergencia';
 import EliminarGrupos from './pages/EliminarGrupos';
 import CambiarPassword from './pages/CambiarPassword';
-// import AccidentsPage from './pages/Accidents';
+import AddMembersPage from './pages/AddMembers';
+import AccidentsPage from './pages/Accidents';
 
 import { App as CapacitorApp } from '@capacitor/app';
 
@@ -81,7 +82,9 @@ const App: React.FC = () => (
             <Route exact path="/group-details/:id" component={GroupDetailsPage} />
             <Route path="/eliminar-grupos" component={EliminarGrupos} exact />
             <Route path="/chat/:usuario" component={PrivateChat} exact />
-             <Route exact path="/healthcare" component={HealthcarePage} /> 
+            <Route exact path="/accidents" component={AccidentsPage} />
+            <Route exact path="/healthcare" component={HealthcarePage} />
+            <Route exact path="/add-members/:groupId" component={AddMembersPage} />
             <Route exact path="/">
               <Redirect to="/login" />
             </Route>

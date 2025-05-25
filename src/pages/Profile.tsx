@@ -37,6 +37,7 @@ const ProfilePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [edad, setEdad] = useState<number | null>(null);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+  const [showLogoutAlert, setShowLogoutAlert] = useState(false); // NUEVO
   const history = useHistory();
 
   useEffect(() => {
@@ -63,7 +64,6 @@ const ProfilePage: React.FC = () => {
   const handleDeleteAccount = async () => {
     if (!user?.nickname) return;
 
-    // Eliminar imagen del storage si existe
     const fotoPath = user.foto
       ? user.foto.split('/storage/v1/object/public/fotos-perfil/')[1]
       : null;
@@ -79,7 +79,6 @@ const ProfilePage: React.FC = () => {
       }
     }
 
-    // Eliminar usuario de la tabla
     const { error } = await supabase
       .from('usuario')
       .delete()
@@ -132,7 +131,7 @@ const ProfilePage: React.FC = () => {
             Editar Perfil
           </IonButton>
 
-          <IonButton className="soter-yellow-button" onClick={handleLogout}>
+          <IonButton className="soter-yellow-button" onClick={() => setShowLogoutAlert(true)}>
             Cerrar Sesión
           </IonButton>
 
@@ -141,6 +140,7 @@ const ProfilePage: React.FC = () => {
           </IonButton>
         </div>
 
+        {/* Alerta eliminar cuenta */}
         <IonAlert
           isOpen={showDeleteAlert}
           onDidDismiss={() => setShowDeleteAlert(false)}
@@ -155,6 +155,24 @@ const ProfilePage: React.FC = () => {
               text: 'Sí, borrar',
               handler: handleDeleteAccount,
             },
+          ]}
+        />
+
+        {/* Alerta cerrar sesión */}
+        <IonAlert
+          isOpen={showLogoutAlert}
+          onDidDismiss={() => setShowLogoutAlert(false)}
+          header="¿Está seguro de querer cerrar sesión?"
+          message="Tendrá que volver a introducir sus credenciales."
+          buttons={[
+            {
+              text: 'Cancelar',
+              role: 'cancel'
+            },
+            {
+              text: 'Sí, cerrar sesión',
+              handler: handleLogout
+            }
           ]}
         />
       </IonContent>

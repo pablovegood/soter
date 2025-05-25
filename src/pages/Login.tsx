@@ -16,7 +16,6 @@ import './Global.css';
 import logo from './images/logo-soter.png';
 import fondo from './images/fondo_soter.png';
 
-
 const supabase = createClient(
   'https://vovrdtlrfiextltvpdpc.supabase.co',
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvdnJkdGxyZmlleHRsdHZwZHBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzNTU5ODcsImV4cCI6MjA1ODkzMTk4N30.pBgPNcysidTyqpOP5900Szt4wF2It0i7SbJAUkN36NI'
@@ -31,51 +30,49 @@ const LoginPage: React.FC = () => {
   const [recoveryMessage, setRecoveryMessage] = useState('');
   const history = useHistory();
 
-const handleLogin = async () => {
-  const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-    email: correo,
-    password
-  });
+  const handleLogin = async () => {
+    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+      email: correo,
+      password
+    });
 
-  if (authError || !authData?.user) {
-    if (authError?.message?.toLowerCase().includes('email not confirmed')) {
-      setError('Debes confirmar tu correo antes de iniciar sesión.');
-    } else {
-      setError('Correo o contraseña incorrectos');
+    if (authError || !authData?.user) {
+      if (authError?.message?.toLowerCase().includes('email not confirmed')) {
+        setError('Debes confirmar tu correo antes de iniciar sesión.');
+      } else {
+        setError('Correo o contraseña incorrectos');
+      }
+      console.error('Auth error:', authError);
+      return;
     }
-    console.error('Auth error:', authError);
-    return;
-  }
 
-  const { data: usuarioData, error: usuarioError } = await supabase
-    .from('usuario')
-    .select('*')
-    .eq('auth_id', authData.user.id)
-    .single();
+    const { data: usuarioData, error: usuarioError } = await supabase
+      .from('usuario')
+      .select('*')
+      .eq('auth_id', authData.user.id)
+      .single();
 
-  if (usuarioError || !usuarioData) {
-    console.error('Usuario no encontrado:', usuarioError);
-    setError('Usuario no encontrado o sin permisos');
-    return;
-  }
+    if (usuarioError || !usuarioData) {
+      console.error('Usuario no encontrado:', usuarioError);
+      setError('Usuario no encontrado o sin permisos');
+      return;
+    }
 
-  localStorage.setItem('user', JSON.stringify(usuarioData));
-  history.replace('/home');
-};
-
-
+    localStorage.setItem('user', JSON.stringify(usuarioData));
+    history.replace('/home');
+  };
 
   const handlePasswordRecovery = async () => {
-  const { error } = await supabase.auth.resetPasswordForEmail(recoveryEmail, {
-    redirectTo: 'soter://reset' // o una URL web si fuera web: 'https://tusitio.com/cambiar-password'
-  });
+    const { error } = await supabase.auth.resetPasswordForEmail(recoveryEmail, {
+      redirectTo: 'soter://reset'
+    });
 
-  setRecoveryMessage(
-    error
-      ? 'No se pudo enviar el correo. Asegúrate de que el email es correcto.'
-      : 'Te hemos enviado un correo para restablecer tu contraseña.'
-  );
-};
+    setRecoveryMessage(
+      error
+        ? 'No se pudo enviar el correo. Asegúrate de que el email es correcto.'
+        : 'Te hemos enviado un correo para restablecer tu contraseña.'
+    );
+  };
 
   return (
     <IonPage>
@@ -93,7 +90,7 @@ const handleLogin = async () => {
           <img src={logo} alt="Logo Soter" className="login-logo" />
         </div>
 
-         <h2 className="login-title">INICIAR SESIÓN</h2>
+        <h2 className="login-title">INICIAR SESIÓN</h2>
         <p className="login-subtitle">Introduzca su correo y contraseña.</p>
 
         <div className="login-input-wrapper">
@@ -101,7 +98,7 @@ const handleLogin = async () => {
           <IonInput
             type="email"
             value={correo}
-            onIonChange={(e) => setCorreo(e.detail.value!)}
+            onIonInput={(e) => setCorreo((e.target as HTMLInputElement).value)}
             placeholder="Correo electrónico"
             className="styled-input"
           />
@@ -112,7 +109,7 @@ const handleLogin = async () => {
           <IonInput
             type="password"
             value={password}
-            onIonChange={(e) => setPassword(e.detail.value!)}
+            onIonInput={(e) => setPassword((e.target as HTMLInputElement).value)}
             placeholder="Contraseña"
             className="styled-input"
           />
