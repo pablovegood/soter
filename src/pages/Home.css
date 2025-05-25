@@ -1,0 +1,89 @@
+.home-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  text-align: center;
+}
+
+.logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.logo-soter {
+  width: 120px;
+  height: auto;
+}
+
+ion-content {
+  --background: transparent !important;
+}
+.sos-title {
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #0C0C0C;
+    padding-top: 3rem;
+  text-transform: uppercase;
+}
+
+.sos-button-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+  cursor: pointer;
+  transition: transform 0.15s ease-in-out;
+}
+
+.sos-button-wrapper:active {
+  transform: scale(0.95);
+}
+
+.sos-button-img {
+  width: 180px;
+  height: 180px;
+  object-fit: contain;
+  transition: transform 0.2s;
+}
+
+.map-container {
+  width: 90%;
+  margin: 20px auto;
+  border-radius: 15px;
+  overflow: hidden;
+}
+
+.bottom-nav-bar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 10px;
+  background-color: #ffffff;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.1);
+  height: 60px;
+}
+
+.home-content {
+  position: relative;
+  z-index: 1;
+}
+
+.home-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.15; /* 🔧 Ajusta la transparencia aquí */
+  z-index: -1;
+}
+

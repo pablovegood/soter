@@ -1,0 +1,117 @@
+
+
+.login-professional-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background-color: #ffffff;
+  min-height: 100vh;
+  padding: max(2rem, env(safe-area-inset-top)) 1rem 2rem 1rem;
+  box-sizing: border-box;
+}
+
+.login-logo-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  margin-top: 2.5rem; /* ✅ separa del borde superior del móvil */
+}
+
+
+.login-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 20px;
+  margin-top: 3rem;
+}
+
+.login-title {
+  text-align: center;
+  color: #0C0C0C;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 0.3rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-subtitle {
+  text-align: center;
+  color: #34445B;
+  font-size: 14px;
+  margin-bottom: 1.5rem;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+
+.login-icon {
+  color: #34445B;
+  margin-right: 0.75rem;
+  font-size: 20px;
+}
+
+.styled-input {
+  flex: 1;
+  font-size: 16px;
+  background: transparent;
+  border: none;
+  outline: none;
+  color: #0C0C0C;
+}
+
+.login-input-wrapper {
+  display: flex;
+  align-items: center;
+  background-color: #F5F5F5;
+  border-radius: 12px;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  width: 90%; /* antes: 100% */
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+  box-sizing: border-box;
+}
+
+.login-submit-button {
+  --background: #F39C3A;
+  color: white;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 1rem;
+  border-radius: 50px;
+  text-transform: uppercase;
+  width: 90%; /* antes: 100% */
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+.login-register-text {
+  text-align: center;
+  margin-top: 1.5rem;
+  font-size: 14px;
+  color: #34445B;
+  font-family: 'Segoe UI', sans-serif;
+}
+
+.login-register-text span {
+  color: #34445B;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.forgot-password-link {
+  font-size: 13px;
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+@media screen and (max-width: 768px) {
+  .login-professional-content {
+    background-image: url('/images/fondo_soter.png');
+    background-size: cover;
+    background-position: center;
+  }
+}

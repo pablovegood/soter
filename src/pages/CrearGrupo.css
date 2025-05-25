@@ -1,0 +1,136 @@
+/* Título principal */
+.edit-profile-title {
+  text-align: center;
+  color: #1e3a8a; /* Azul SOTER */
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+/* Contenedor principal */
+.crear-grupo-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* CENTRADO VERTICAL */
+  min-height: 100vh; /* Alto completo */
+  padding: 24px 16px;
+  background-image: url('../images/fondo-soter.png');
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  font-family: 'Verdana', sans-serif;
+}
+
+
+/* Botones superiores */
+.top-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+/* Grupo de campos */
+.input-group {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* <-- CENTRA HORIZONTALMENTE */
+  justify-content: center;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+
+/* Etiquetas de los campos */
+.input-group ion-label {
+  font-weight: bold;
+  color: #1e3a8a; /* Azul SOTER */
+  margin-bottom: 4px;
+  text-align: center;
+}
+
+/* Inputs */
+.input-group ion-input {
+  --padding-start: 10px;
+  --padding-end: 10px;
+  text-align: center;
+  border-radius: 6px;
+  background: #2F435B;
+  color: white;
+  width: 100%;
+}
+
+/* Resultados de búsqueda */
+.search-results {
+  background: #1e3a8a;
+  border: 1px solid #ccc;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 2;
+  position: relative;
+  width: 100%;
+  text-align: center;
+}
+
+.search-results div {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 15px;
+  color: white;
+}
+
+.search-results div:hover {
+  background-color: #2F435B;
+}
+
+/* Chips de miembros */
+.selected-members {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  max-width: 400px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.chip {
+  background-color: #444;
+  color: white;
+  padding: 4px 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.chip span {
+  cursor: pointer;
+  font-weight: bold;
+}
+
+/* Botones reutilizables */
+.boton-soter-verde {
+  background: #42E676;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.boton-soter-verde:hover {
+  filter: brightness(1.1);
+}
+
+.boton-soter-azul {
+  background: #2F435B;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.boton-soter-azul:hover {
+  filter: brightness(1.1);
+}

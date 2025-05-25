@@ -1,0 +1,188 @@
+.login-professional-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #E4ECF3;
+    height: 100%;
+  }
+  
+ 
+  
+  .login-title {
+    text-align: center;
+    color: #0C0C0C;
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    font-family: 'Segoe UI', sans-serif;
+    text-transform: uppercase;
+  }
+  
+  .login-subtitle {
+    text-align: center;
+    color: #34445B;
+    font-size: 14px;
+    margin-bottom: 1.5rem;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .login-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-radius: 12px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .login-icon {
+    color: #34445B;
+    margin-right: 0.75rem;
+    font-size: 20px;
+  }
+  
+  .styled-input {
+    flex: 1;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #0C0C0C;
+  }
+  
+  .login-submit-button {
+    --background: #F39C3A;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 1rem;
+    border-radius: 50px;
+    text-transform: uppercase;
+
+  }
+  
+  .login-register-text {
+    text-align: center;
+    margin-top: 1.5rem;
+    font-size: 14px;
+    color: #34445B;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .login-register-text span {
+    color: #34445B;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .forgot-password-link {
+    text-align: center;
+    margin-top: 0.5rem;
+    font-size: 14px;
+    color: #34445B;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+  .forgot-password-link span {
+    color: #34445B;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: underline;
+  }
+  
+  .register-input-wrapper {
+    display: flex;
+    align-items: center;
+    background-color: #F5F5F5;
+    border-radius: 12px;
+    padding: 0.75rem;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+  
+  .register-icon {
+    color: #34445B;
+    margin-right: 0.75rem;
+    font-size: 20px;
+  }
+  
+  .register-styled-input {
+    flex: 1;
+    font-size: 16px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #0C0C0C;
+  }
+  
+  ion-select.register-prefijo {
+    --background: #F5F5F5;
+    --color: #34445B;
+    --placeholder-color: #34445B;
+    --placeholder-opacity: 1;
+    font-size: 16px;
+    border-radius: 12px;
+    padding-left: 10px;
+    flex: 1;
+    --padding-start: 12px;
+  }
+  
+  ion-select::part(text) {
+    color: #6e6e6e !important;
+    font-size: 16px;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  
+
+  
+
+  .return-button {
+    --background: #34445B;
+    --color: white;
+    font-weight: bold;
+    border-radius: 50px;
+    margin-top: 0.75rem;
+    text-transform: uppercase;
+  }
+  
+  ion-select.register-prefijo::part(text) {
+    font-family: 'Segoe UI Emoji', 'Apple Color Emoji', 'Noto Color Emoji', sans-serif !important;
+  }
+  
+  .login-professional-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: max(2rem, env(safe-area-inset-top)) 1rem 2rem 1rem;
+    box-sizing: border-box;
+  }
+  
+  .register-input-wrapper,
+  .login-submit-button,
+  .return-button {
+    width: 90%;      /* antes podía estar al 100% */
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+.custom-calendar-modal {
+  --width: 320px !important;
+  --max-width: 90%;
+  --height: auto;
+  --border-radius: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Asegura que el contenido no sobresalga */
+.calendar-wrapper {
+  padding: 20px;
+  width: 100%;
+  max-width: 320px;
+  box-sizing: border-box;
+}

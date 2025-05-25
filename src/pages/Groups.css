@@ -1,0 +1,89 @@
+.groups-content {
+  font-family: 'Roboto', sans-serif;
+}
+
+.groups-title {
+  color: #2F435B;
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 3rem;
+  margin-bottom: 1rem;
+  font-family: 'Roboto', sans-serif;
+}
+
+.sos-title {
+  text-align: center;
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 24px;
+  font-weight: bold;
+  margin-top: 10px;
+  color: #0C0C0C;
+    padding-top: 3rem;
+  text-transform: uppercase;
+}
+
+
+
+
+.grupo-card {
+  background-color: #dee3e8; /* Gris más claro */
+  padding: 12px 16px;
+  width: 90%;
+  max-width: 400px;
+  border-radius: 8px;
+  text-align: center;
+ 
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+
+
+.grupo-nombre {
+  font-weight: bold;
+  margin-bottom: 4px;
+  font-size: 16px;
+  color: #2F435B; /* Azul oscuro SOTER */
+}
+
+
+.grupo-detalle {
+  color: #f5a623;
+  font-size: 14px;
+}
+
+.soter-yellow-button,
+.soter-green-button,
+.soter-gray-button {
+  height: 48px;
+  padding: 0 24px;
+  font-weight: bold;
+  font-size: 16px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.soter-yellow-button {
+  --background: #f5a623; /* Mostaza */
+}
+
+.soter-green-button {
+  --background: #42E676; /* Azul oscuro de SOTER */
+
+}
+
+.groups-title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 16px;
+}
+
+.groups-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
