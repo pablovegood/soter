@@ -13,6 +13,15 @@ import { createClient } from '@supabase/supabase-js';
 import './Global.css';
 import './EditProfile.css';
 import 'ionicons/icons';
+import {
+  personOutline,
+  mailOutline,
+  calendarOutline,
+  homeOutline,
+  callOutline,
+  lockClosedOutline,
+  peopleOutline
+} from 'ionicons/icons';
 
 
 const supabase = createClient(
@@ -147,6 +156,7 @@ const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
   return (
     <IonPage>
       <IonContent className="ion-padding">
+              <div className="page-top-spacer"></div>
         <h2 className="edit-profile-title">MODIFICAR DATOS PERSONALES</h2>
 
         <div className="edit-profile-container">
@@ -154,22 +164,22 @@ const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
           {user?.foto && <img src={user.foto} alt="Foto de perfil" className="edit-profile-image-preview" />}
 
           <div className="edit-profile-field">
-            <IonIcon icon="person-outline" />
+            <IonIcon icon={personOutline} />
             <IonInput placeholder="Nombre" value={user?.nombre} onIonChange={(e) => handleChange('nombre', e.detail.value!)} />
           </div>
 
           <div className="edit-profile-field">
-            <IonIcon icon="people-outline" />
+            <IonIcon icon={personOutline} />
             <IonInput placeholder="Apellidos" value={user?.apellidos} onIonChange={(e) => handleChange('apellidos', e.detail.value!)} />
           </div>
 
           <div className="edit-profile-field">
-            <IonIcon icon="mail-outline" />
+            <IonIcon icon={mailOutline} />
             <IonInput placeholder="Correo" value={user?.correo} onIonChange={(e) => handleChange('correo', e.detail.value!)} />
           </div>
 
           <div className="edit-profile-field">
-            <IonIcon icon="calendar-outline" />
+            <IonIcon icon={calendarOutline} />
             <IonInput
               placeholder="Fecha de nacimiento"
               value={user?.fechadenacimiento?.split('T')[0] || ''}
@@ -192,24 +202,48 @@ const handleFileUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
           </IonModal>
 
           <div className="edit-profile-field">
-            <IonIcon icon="home-outline" />
+            <IonIcon icon={homeOutline}/>
             <IonInput placeholder="Domicilio" value={user?.domicilio} onIonChange={(e) => handleChange('domicilio', e.detail.value!)} />
           </div>
 
-          <div className="edit-profile-field">
-            <IonIcon icon="call-outline" />
-            <IonInput
-              placeholder="Teléfono"
-              value={user?.telefono?.replace('+34', '')}
-              onIonChange={(e) => handleChange('telefono', '+34' + e.detail.value!)}
-            />
-          </div>
+<div className="edit-profile-field">
+  <IonIcon icon={callOutline} />
+  <div className="phone-input-wrapper">
+    <select
+      className="prefix-dropdown"
+      value={user?.telefono?.slice(0, 3) || '+34'}
+      onChange={(e) => {
+        const prefix = e.target.value;
+        const number = user?.telefono?.slice(3) || '';
+        handleChange('telefono', prefix + number);
+      }}
+    >
+      <option value="+34">🇪🇸 +34</option>
+      <option value="+39">🇮🇹 +39</option>
+      <option value="+33">🇫🇷 +33</option>
+      <option value="+49">🇩🇪 +49</option>
+      <option value="+44">🇬🇧 +44</option>
+      <option value="+1">🇺🇸 +1</option>
+    </select>
+    <IonInput
+      className="number"
+      placeholder="Número"
+      value={user?.telefono?.slice(3) || ''}
+      onIonChange={(e) => {
+        const number = e.detail.value!;
+        const prefix = user?.telefono?.slice(0, 3) || '+34';
+        handleChange('telefono', prefix + number);
+      }}
+    />
+  </div>
+</div>
+
 
           <IonButton expand="block" className="soter-green-button" onClick={handleSave} disabled={!hasChanges()}>
             GUARDAR CAMBIOS
           </IonButton>
 
-          <IonButton expand="block" className="soter-yellow-button" routerLink="/profile">
+          <IonButton expand="block" className="cancel-button" routerLink="/profile">
             CANCELAR
           </IonButton>
 

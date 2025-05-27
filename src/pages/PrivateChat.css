@@ -12,7 +12,7 @@
   display: flex;
   align-items: center;
   padding: 10px;
-  background-color: #1e3a8a; /* Azul oscuro Soter */
+  background-color: #2F435B; /* Azul oscuro Soter */
   color: white;
   font-weight: bold;
 }
@@ -60,21 +60,21 @@
 
 .mensaje.propio {
   align-self: flex-end;
-  background-color: #f59e0b; /* Mostaza / Naranja Soter */
+  background-color: #F6A03D; /* Mostaza / Naranja Soter */
   color: white;
   border-bottom-right-radius: 0;
 }
 
 .mensaje.ajeno {
   align-self: flex-start;
-  background-color: #1e40af; /* Azul Soter */
+  background-color: #2F435B; 
   color: white;
   border-bottom-left-radius: 0;
 }
 
 .timestamp {
   font-size: 0.7rem;
-  color: #e0e0e0;
+  color: white;
   align-self: flex-end;
   margin-top: 4px;
   padding-right: 4px;
@@ -90,7 +90,7 @@
 .input-mensaje {
   flex: 1;
   margin-right: 10px;
-  background: #f9f9f9;
+  background: #e1e1e1;
   border-radius: 10px;
   padding: 5px 10px;
   font-size: 1rem;
@@ -103,7 +103,7 @@
   top: 0;
   width: 100%;
   z-index: 1000;
-  background-color: #1e3a8a;
+  background-color: #2F435B;
   color: white;
   display: flex;
   align-items: center;
@@ -128,4 +128,17 @@
   gap: 10px;
   height: 100%;
   overflow-y: auto;
+}
+
+.input-mensaje {
+  color: black;
+}
+.enviar-container {
+  position: sticky;
+  bottom: 0;
+  z-index: 10;
+  background-color: white;
+  display: flex;
+  padding: 10px;
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.05);
 }

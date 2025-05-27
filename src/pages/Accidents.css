@@ -1,6 +1,6 @@
 .accident-page {
   padding: 16px;
-  font-family: 'Verdana', sans-serif;
+  font-family: 'Roboto', sans-serif;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -29,6 +29,7 @@
   background: rgba(255, 255, 255, 0.9);
   border-radius: 12px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  cursor: pointer;
 }
 
 .accident-card ion-card-title {
@@ -41,4 +42,14 @@
   font-size: 15px;
   color: #333;
   line-height: 1.4;
+}
+
+
+
+
+.accident-subtitle-right {
+  text-align:center;
+
+  color: #2F435B;
+  font-weight: bold;
 }

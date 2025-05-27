@@ -133,18 +133,19 @@ const eliminarSeleccionados = async () => {
   return (
     <IonPage>
       <IonContent className="crear-grupo-content">
+        <div className="page-top-spacer"></div>
         <h2 className="edit-profile-title">ELIMINAR GRUPOS</h2>
 
         <div className="top-buttons">
           <IonButton
-            style={{ backgroundColor: '#d32f2f', color: 'white', fontWeight: 'bold' }}
+            className="delete-button"
             onClick={eliminarSeleccionados}
             disabled={seleccionados.length === 0}
           >
             ELIMINAR GRUPO
           </IonButton>
           <IonButton
-            style={{ backgroundColor: '#1e3a8a', color: 'white', fontWeight: 'bold' }}
+            className="cancel-button"
             onClick={() => history.push('/groups')}
           >
             CANCELAR

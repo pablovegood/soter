@@ -4,7 +4,6 @@ import {
   IonContent,
   IonInput,
   IonButton,
-  IonToast,
   IonIcon,
   IonAlert
 } from '@ionic/react';
@@ -30,37 +29,44 @@ const LoginPage: React.FC = () => {
   const [recoveryMessage, setRecoveryMessage] = useState('');
   const history = useHistory();
 
-  const handleLogin = async () => {
-    const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
-      email: correo,
-      password
-    });
+  React.useEffect(() => {
+  if (error) {
+    const timer = setTimeout(() => setError(''), 3000); // 3 segundos
+    return () => clearTimeout(timer);
+  }
+}, [error]);
 
-    if (authError || !authData?.user) {
-      if (authError?.message?.toLowerCase().includes('email not confirmed')) {
-        setError('Debes confirmar tu correo antes de iniciar sesión.');
-      } else {
-        setError('Correo o contraseña incorrectos');
-      }
-      console.error('Auth error:', authError);
-      return;
-    }
 
-    const { data: usuarioData, error: usuarioError } = await supabase
-      .from('usuario')
-      .select('*')
-      .eq('auth_id', authData.user.id)
-      .single();
+const handleLogin = async () => {
+  const { data: authData, error: authError } = await supabase.auth.signInWithPassword({
+    email: correo,
+    password
+  });
 
-    if (usuarioError || !usuarioData) {
-      console.error('Usuario no encontrado:', usuarioError);
-      setError('Usuario no encontrado o sin permisos');
-      return;
-    }
+  if (authError || !authData?.user) {
+    setError('Correo o contraseña incorrectos');
+    return;
+  }
 
-    localStorage.setItem('user', JSON.stringify(usuarioData));
+  // Aseguramos que se guarde correctamente el usuario
+  const { data: usuarioData, error: usuarioError } = await supabase
+    .from('usuario')
+    .select('*')
+    .eq('auth_id', authData.user.id)
+    .single();
+
+  if (usuarioError || !usuarioData) {
+    setError('Usuario no encontrado');
+    return;
+  }
+
+  localStorage.setItem('user', JSON.stringify(usuarioData));
+
+  // Pequeño retardo opcional para evitar carreras con App.tsx
+  setTimeout(() => {
     history.replace('/home');
-  };
+  }, 100);
+};
 
   const handlePasswordRecovery = async () => {
     const { error } = await supabase.auth.resetPasswordForEmail(recoveryEmail, {
@@ -128,13 +134,12 @@ const LoginPage: React.FC = () => {
           ¿No tiene cuenta? <span onClick={() => history.push('/register')}>Regístrese aquí</span>
         </p>
 
-        <IonToast
-          isOpen={!!error}
-          message={error}
-          duration={3000}
-          color="danger"
-          onDidDismiss={() => setError('')}
-        />
+        {error && (
+          <div className="custom-error-alert">
+            {error}
+          </div>
+        )}
+
 
         <IonAlert
           isOpen={showAlert}

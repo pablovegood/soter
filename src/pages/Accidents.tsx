@@ -11,6 +11,7 @@ import {
   IonTabButton,
   IonIcon
 } from '@ionic/react';
+import { useHistory } from 'react-router-dom';
 import { createClient } from '@supabase/supabase-js';
 import { personCircle, people, home, documentText, medical } from 'ionicons/icons';
 import './Global.css';
@@ -41,6 +42,7 @@ const AccidentsPage: React.FC = () => {
   const [accidentesPropios, setAccidentesPropios] = useState<Accidente[]>([]);
   const [accidentesProtectores, setAccidentesProtectores] = useState<{ accidente: Accidente, protegido: Usuario }[]>([]);
   const currentUser = JSON.parse(localStorage.getItem('user') || '{}');
+  const history = useHistory();
 
   const fetchAccidentes = useCallback(async () => {
     const { data: propios } = await supabase
@@ -100,32 +102,44 @@ const AccidentsPage: React.FC = () => {
 
   return (
     <IonPage>
+      
       <IonContent className="accident-page">
+        <div className="page-top-spacer"></div>
         <h2 className="sos-title">REGISTRO ACCIDENTES</h2>
 
-        <h3 className="accident-subtitle">Propios:</h3>
+        {accidentesPropios.length > 0 && (
+          <h3 className="accident-subtitle-right">Propios:</h3>
+        )}
         {accidentesPropios.map(acc => (
-          <IonCard key={acc.id} className="accident-card">
+          <IonCard
+            key={acc.id}
+            className="accident-card"
+            onClick={() => history.push(`/accident/${acc.id}`)}
+          >
             <IonCardHeader>
               <IonCardTitle>ID: {acc.id}</IonCardTitle>
             </IonCardHeader>
             <IonCardContent>
-              Fecha: {formatearFecha(acc.fecha)}<br />
-              Zona: {acc.zona}
+              <strong>Fecha:</strong> {formatearFecha(acc.fecha)}<br />
+              <strong>Zona:</strong> {acc.zona}
             </IonCardContent>
           </IonCard>
         ))}
 
-        <h3 className="accident-subtitle">Como protector:</h3>
+        {accidentesProtectores.length > 0 && (
+          <h3 className="accident-subtitle-right">Como protector:</h3>
+        )}
         {accidentesProtectores.map(({ accidente, protegido }) => (
-          <IonCard key={accidente.id} className="accident-card">
-            <IonCardHeader>
-              <IonCardTitle>ID: {accidente.id}</IonCardTitle>
-            </IonCardHeader>
+          <IonCard
+            key={accidente.id}
+            className="accident-card"
+            onClick={() => history.push(`/accident/${accidente.id}`)}
+          >
             <IonCardContent>
-              Protegido: {protegido?.nombre} {protegido?.apellidos}<br />
-              Fecha: {formatearFecha(accidente.fecha)}<br />
-              Zona: {accidente.zona}
+              <IonCardTitle>ID: {accidente.id}</IonCardTitle>
+              <strong>Protegido:</strong> {protegido?.nombre} {protegido?.apellidos}<br />
+              <strong>Fecha:</strong> {formatearFecha(accidente.fecha)}<br />
+              <strong>Zona:</strong> {accidente.zona}
             </IonCardContent>
           </IonCard>
         ))}

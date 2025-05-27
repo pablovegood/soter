@@ -115,17 +115,18 @@ const handleCrearGrupo = async () => {
   return (
 <IonPage>
   <IonContent className="crear-grupo-content">
+    <div className="page-top-spacer"></div>
     <h2 className="edit-profile-title">CREAR GRUPO</h2>
 
     <div className="top-buttons">
       <IonButton
-        style={{ backgroundColor: '#4CAF50', color: '#fff', fontWeight: 'bold', borderRadius: '8px' }}
+       className="soter-green-button"
         onClick={handleCrearGrupo}
       >
         CREAR GRUPO
       </IonButton>
       <IonButton
-        style={{ backgroundColor: '#1e3a8a', color: '#fff', fontWeight: 'bold', borderRadius: '8px' }}
+        className="cancel-button"
         onClick={() => history.push('/groups')}
       >
         CANCELAR

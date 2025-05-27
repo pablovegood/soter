@@ -83,15 +83,16 @@ const AddMembersPage: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="crear-grupo-content">
+        <div className="page-top-spacer"></div>
         <h2 className="edit-profile-title">
           AÑADIR MIEMBRO(S) A<br />LA {grupoNombre.toUpperCase()}
         </h2>
 
         <div className="top-buttons">
-          <IonButton className="boton-soter-verde" onClick={handleConfirmar}>
+          <IonButton className="soter-green-button" onClick={handleConfirmar}>
             AÑADIR MIEMBROS
           </IonButton>
-          <IonButton className="boton-soter-azul" onClick={() => history.push(`/group-details/${id}`)}>
+          <IonButton className="cancel-button" onClick={() => history.push(`/group-details/${id}`)}>
             CANCELAR
           </IonButton>
         </div>

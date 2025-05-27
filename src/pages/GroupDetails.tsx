@@ -82,25 +82,25 @@ const GroupDetailsPage: React.FC = () => {
   };
 
   const handleChat = (nickname: string) => {
-    history.push(`/chat/${nickname}`);
+    history.push({
+      pathname: `/chat/${nickname}`,
+      state: { from: `/group-details/${id}` }
+    });
   };
 
   return (
     <IonPage>
       <IonContent className="group-details-page">
+        <div className="page-top-spacer"></div>
         <h2 className="group-title">{grupoNombre}</h2>
 
         <div className="group-buttons">
-          <IonButton className="delete-button" routerLink="/groups">
+          <IonButton className="cancel-button" routerLink="/groups">
             VOLVER
           </IonButton>
 
-          <IonButton className="delete-button" disabled={!esAdminDelGrupo}>
-            CREAR ADMINS
-          </IonButton>
-
           <IonButton
-            className="delete-button"
+            className="soter-green-button"
             disabled={!esAdminDelGrupo}
             routerLink={esAdminDelGrupo ? `/add-members/${id}` : undefined}
           >
@@ -109,6 +109,10 @@ const GroupDetailsPage: React.FC = () => {
 
           <IonButton className="delete-button" disabled={!esAdminDelGrupo}>
             ELIMINAR MIEMBROS
+          </IonButton>
+
+          <IonButton className="soter-green-button" disabled={!esAdminDelGrupo}>
+            CREAR ADMINS
           </IonButton>
 
           <img
@@ -124,7 +128,9 @@ const GroupDetailsPage: React.FC = () => {
             <h3 className="role-title">Protegido:</h3>
             <div
               className={`user-card ${protegido.nickname !== currentUserNickname ? 'clickable' : ''}`}
-              onClick={() => protegido.nickname !== currentUserNickname && handleChat(protegido.nickname)}
+              onClick={() =>
+                protegido.nickname !== currentUserNickname && handleChat(protegido.nickname)
+              }
             >
               {protegido.foto && <img src={protegido.foto} alt="" className="user-image" />}
               <div className="user-info">
@@ -143,7 +149,9 @@ const GroupDetailsPage: React.FC = () => {
               <div
                 key={p.nickname}
                 className={`user-card ${p.nickname !== currentUserNickname ? 'clickable' : ''}`}
-                onClick={() => p.nickname !== currentUserNickname && handleChat(p.nickname)}
+                onClick={() =>
+                  p.nickname !== currentUserNickname && handleChat(p.nickname)
+                }
               >
                 {p.foto && <img src={p.foto} alt="" className="user-image" />}
                 <div className="user-info">

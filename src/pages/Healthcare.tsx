@@ -56,6 +56,7 @@ useEffect(() => {
   return (
     <IonPage>
       <IonContent className="healthcare-content">
+         <div className="page-top-spacer"></div>
         <div className="consejos-wrapper">
           <h2 className="sos-title">Consejos del Día sobre Salud</h2>
 

@@ -80,12 +80,7 @@
   text-transform: uppercase;
 }
 
-.soter-green-button {
-  --background: #48D96C;
-  --color: white;
-  font-weight: bold;
-  text-transform: uppercase;
-}
+
 
 .soter-red-button {
   --background: #F44336;
@@ -131,7 +126,7 @@
   height: 40px;
   cursor: pointer;
   border-radius: 50%;
-  background-color: #2F435B; /* Azul oscuro SOTER */
+  background-color: #E7F0F6; /* Azul oscuro SOTER */
   padding: 8px;
   box-shadow: 0 2px 6px rgba(0,0,0,0.2);
   transition: transform 0.2s ease-in-out;

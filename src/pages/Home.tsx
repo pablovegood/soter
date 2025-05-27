@@ -9,6 +9,7 @@ import {
   IonLabel
 } from '@ionic/react';
 import { personCircle, people, home, documentText, medical } from 'ionicons/icons';
+import { Geolocation } from '@capacitor/geolocation'; // ⚠️ NUEVO IMPORT
 import './Home.css';
 import botonSos from './images/boton-sos.png';
 
@@ -21,24 +22,25 @@ const HomePage: React.FC = () => {
     if (!storedUser) {
       window.location.href = '/login';
     }
-    if (navigator.geolocation) {
-      const watchId = navigator.geolocation.watchPosition(
-        (position) => {
-          setLocation({
-            lat: position.coords.latitude,
-            lng: position.coords.longitude
-          });
-        },
-        (error) => console.error(error),
-        {
-          enableHighAccuracy: true,
-          maximumAge: 0,
-          timeout: 5000
-        }
-      );
 
-      return () => navigator.geolocation.clearWatch(watchId);
-    }
+    const fetchLocation = async () => {
+      try {
+        const permission = await Geolocation.checkPermissions();
+        if (permission.location === 'denied') {
+          await Geolocation.requestPermissions();
+        }
+
+        const position = await Geolocation.getCurrentPosition();
+        setLocation({
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        });
+      } catch (error) {
+        console.error('Error obteniendo ubicación:', error);
+      }
+    };
+
+    fetchLocation();
   }, []);
 
   const handleLogout = () => {
@@ -49,29 +51,31 @@ const HomePage: React.FC = () => {
   return (
     <IonPage>
       <IonContent className="home-content">
-        <h1 className="sos-title">BOTÓN SOS</h1>
+        <div className="page-top-spacer"></div>
+        <h1 className="sos-title">MENÚ PRINCIPAL</h1>
 
-       <div
-  className="sos-button-wrapper"
-  onClick={() => (window.location.href = '/emergency')}
->
-  <img src={botonSos} alt="Botón SOS" className="sos-button-img" />
-</div>
-
-
+        <div
+          className="sos-button-wrapper"
+          onClick={() => (window.location.href = '/emergency')}
+        >
+          <img src={botonSos} alt="Botón SOS" className="sos-button-img" />
+        </div>
+          <div className="page-top-spacer"></div>
         <div className="map-container">
           {location ? (
             <iframe
               title="Ubicación"
               src={`https://maps.google.com/maps?q=${location.lat},${location.lng}&z=15&output=embed`}
-              width="100%"
+              width="80%"
               height="250"
               style={{ border: 0, borderRadius: '15px' }}
               allowFullScreen
               loading="lazy"
             ></iframe>
           ) : (
-            <p>Cargando ubicación...</p>
+            <p style={{ color: '#2F435B', fontWeight: 'bold', textAlign: 'center' }}>
+              Cargando ubicación...
+            </p>
           )}
         </div>
       </IonContent>

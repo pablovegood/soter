@@ -53,10 +53,10 @@
   font-size: 14px;
 }
 
+.cancel-button,
 .soter-yellow-button,
 .soter-green-button,
 .soter-gray-button {
-  height: 48px;
   padding: 0 24px;
   font-weight: bold;
   font-size: 16px;
@@ -70,10 +70,14 @@
   --background: #f5a623; /* Mostaza */
 }
 
+/* Botones */
 .soter-green-button {
-  --background: #42E676; /* Azul oscuro de SOTER */
-
+  color: white !important;
+  font-weight: bold;
+  border-radius: 12px;
+   --background: #42E676;
 }
+
 
 .groups-title {
   font-size: 24px;

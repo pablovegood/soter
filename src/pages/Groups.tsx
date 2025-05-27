@@ -94,6 +94,7 @@ const GroupsPage: React.FC = () => {
   return (
     <IonPage>
       <IonContent>
+         <div className="page-top-spacer"></div>
         <h2 className="sos-title">GRUPOS</h2>
 
         <div className="groups-buttons">
@@ -101,7 +102,7 @@ const GroupsPage: React.FC = () => {
             CREAR GRUPO
           </IonButton>
           {esAdmin && (
-            <IonButton className="soter-yellow-button" routerLink="/eliminar-grupos">
+            <IonButton className="delete-button" routerLink="/eliminar-grupos">
               ELIMINAR GRUPOS
             </IonButton>
           )}

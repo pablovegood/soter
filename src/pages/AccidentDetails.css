@@ -1,0 +1,106 @@
+.accident-details-content {
+  padding: 1.5rem;
+  font-family: 'Roboto', sans-serif;
+  justify-content: center;
+  
+  
+}
+
+.accident-details-title {
+  text-align: center;
+  font-weight: bold;
+  color: #2F435B;
+  margin-bottom: 1.5rem;
+}
+
+.accident-buttons {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 1.5rem;
+}
+
+.soter-secondary-button {
+  --background: #F4A261;
+  --color: white;
+  font-weight: bold;
+  border-radius: 8px;
+}
+
+.accident-details-box {
+    color: #2F435B;
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: auto;
+  width: 90%;
+}
+
+.stars-container {
+  display: flex;
+  gap: 5px;
+  font-size: 1.5rem;
+  color: #F4A261;
+}
+
+.star-icon {
+  font-size: 24px;
+  color: #F4A261;
+}
+
+.pdf-header {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.pdf-logo {
+  height: 90px;
+  width: auto;
+  object-fit: contain;
+}
+
+
+.pdf-container {
+  width: 95%;
+   margin: 0 auto;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 20px;
+  color: #000;
+  background-color: #f0f0f0;
+  border-radius: 15px;
+
+}
+
+.pdf-container h1 {
+  text-align: center;
+  font-size: 24px;
+  margin-bottom: 30px;
+  border-bottom: 2px solid #333;
+  padding-bottom: 10px;
+  
+}
+
+.pdf-section {
+  margin-bottom: 25px;
+}
+
+.pdf-section h2 {
+  font-size: 18px;
+  margin-bottom: 10px;
+  color: #2c3e50;
+  border-left: 4px solid #f5c518;
+  padding-left: 8px;
+}
+
+.pdf-section p {
+  margin: 6px 0;
+  font-size: 15px;
+}
+
+.pdf-stars {
+  font-size: 20px;
+  color: #f5c518;
+  letter-spacing: 4px;
+  margin-top: 8px;
+}

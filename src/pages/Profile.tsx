@@ -15,7 +15,6 @@ import { useHistory } from 'react-router-dom';
 import { personCircle, people, home, documentText, medical } from 'ionicons/icons';
 import './Profile.css';
 import placeholder from './images/placeholder.jpg';
-import fondo from './images/fondo_soter.png';
 
 const supabase = createClient(
   'https://vovrdtlrfiextltvpdpc.supabase.co',
@@ -37,13 +36,13 @@ const ProfilePage: React.FC = () => {
   const [user, setUser] = useState<User | null>(null);
   const [edad, setEdad] = useState<number | null>(null);
   const [showDeleteAlert, setShowDeleteAlert] = useState(false);
-  const [showLogoutAlert, setShowLogoutAlert] = useState(false); // NUEVO
+  const [showLogoutAlert, setShowLogoutAlert] = useState(false);
   const history = useHistory();
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
     if (!storedUser) {
-      window.location.href = '/login';
+      history.replace('/login');
     } else {
       const parsedUser = JSON.parse(storedUser);
       setUser(parsedUser);
@@ -59,7 +58,7 @@ const ProfilePage: React.FC = () => {
         setEdad(age);
       }
     }
-  }, []);
+  }, [history]);
 
   const handleDeleteAccount = async () => {
     if (!user?.nickname) return;
@@ -84,30 +83,26 @@ const ProfilePage: React.FC = () => {
       .delete()
       .eq('nickname', user.nickname);
 
+    await supabase.auth.signOut();
+    localStorage.removeItem('user');
+
     if (!error) {
-      localStorage.removeItem('user');
-      window.location.href = '/register';
+      history.replace('/register');
     } else {
       alert('Error al borrar la cuenta. Intenta de nuevo.');
     }
   };
 
-  const handleLogout = () => {
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
     localStorage.removeItem('user');
-    history.push('/login');
+    history.replace('/login');
   };
 
   return (
     <IonPage>
-      <IonContent
-        className="profile-container"
-        style={{
-          backgroundImage: `url(${fondo})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'down',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
+      <IonContent className="home-content">
+              <div className="page-top-spacer"></div>
         <h2 className="profile-title">DATOS PERSONALES</h2>
 
         <div className="profile-dni-card">

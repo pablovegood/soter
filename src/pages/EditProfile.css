@@ -1,6 +1,6 @@
 .edit-profile-title {
   text-align: center;
-  color: #1e3a8a; /* Azul SOTER */
+  color: #22334d; /* Azul SOTER */
   font-size: 24px;
   font-weight: bold;
   margin-top: 20px;
@@ -11,7 +11,7 @@
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: #E7F0F6;
   border-radius: 16px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   display: flex;
@@ -32,7 +32,7 @@
 
 .edit-profile-field ion-icon {
   font-size: 20px;
-  color: #1e3a8a; /* Azul SOTER */
+  color: #22334d; /* Azul SOTER */
 }
 
 .edit-profile-field ion-input {
@@ -41,21 +41,10 @@
   --box-shadow: none;
   font-size: 16px;
   flex: 1;
-  color: #1e3a8a; /* Azul SOTER para texto */
+  color: #22334d; /* Azul SOTER para texto */
 }
 
-/* Botones */
-.soter-green-button {
-  color: white !important;
-  font-weight: bold;
-  border-radius: 12px;
-}
 
-.soter-yellow-button {
-  color: white !important;
-  font-weight: bold;
-  border-radius: 12px;
-}
 
 /* Imagen subida */
 .edit-profile-file {
@@ -66,6 +55,7 @@
   max-width: 100px;
   border-radius: 10px;
   margin-bottom: 10px;
+  /*align-self: center;*/
 }
 
 /* Reduce el ancho del modal */
@@ -85,4 +75,54 @@
   width: 100%;
   max-width: 320px;
   box-sizing: border-box;
+}
+
+.edit-profile-file {
+  color: #22334d; /* azul oscuro de Soter */
+  background-color: #f5f5f5;
+  border: 1px solid #ccc;
+  padding: 8px;
+  justify-content: center;
+  border-radius: 6px;
+  font-family: Verdana, sans-serif;
+  font-size: 14px;
+  width: 100%;
+  max-width: 100%;
+}
+
+.phone-input-wrapper {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+}
+
+.phone-input-wrapper .prefix {
+  width: 80px;
+  flex-shrink: 0;
+}
+
+.phone-input-wrapper .number {
+  width: 100px;
+  flex-grow: 1;
+}
+
+.phone-input-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.prefix-dropdown {
+  height: 44px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 4px 8px;
+  background-color: #fff;
+  color: #003049; /* Azul oscuro de Soter */
+}
+
+.number {
+  flex: 1;
 }

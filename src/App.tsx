@@ -22,6 +22,9 @@ import EliminarGrupos from './pages/EliminarGrupos';
 import CambiarPassword from './pages/CambiarPassword';
 import AddMembersPage from './pages/AddMembers';
 import AccidentsPage from './pages/Accidents';
+import AccidentDetails from './pages/AccidentDetails';
+import SessionChecker from './pages/SessionChecker';
+
 
 import { App as CapacitorApp } from '@capacitor/app';
 
@@ -32,7 +35,6 @@ CapacitorApp.addListener('appUrlOpen', async ({ url }) => {
     const type = params.get('type');
 
     if (accessToken && type === 'recovery') {
-      // Redirige dentro de tu app a la pantalla para cambiar la contraseña
       window.location.href = `/cambiar-password?access_token=${accessToken}`;
     }
   }
@@ -64,30 +66,52 @@ import './App.css';
 
 setupIonicReact();
 
+/* 🔒 Protección de rutas privadas */
+const isAuthenticated = () => {
+  const user = localStorage.getItem('user');
+  return user !== null;
+};
+
 const App: React.FC = () => (
   <IonApp>
     <div className="background-wrapper">
       <IonReactRouter>
         <IonTabs>
           <IonRouterOutlet>
+
+            {/* Pública */}
+            
             <Route exact path="/login" component={LoginPage} />
-            <Route exact path="/home" component={HomePage} />
             <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/profile" component={ProfilePage} />
-            <Route exact path="/edit-profile" component={EditProfilePage} />
-            <Route exact path="/groups" component={GroupsPage} />
-            <Route exact path="/crear-grupo" component={CrearGrupoPage} />
-            <Route path="/emergency" component={EnviarEmergencia} exact />
-            <Route path="/cambiar-password" component={CambiarPassword} exact />
-            <Route exact path="/group-details/:id" component={GroupDetailsPage} />
-            <Route path="/eliminar-grupos" component={EliminarGrupos} exact />
-            <Route path="/chat/:usuario" component={PrivateChat} exact />
-            <Route exact path="/accidents" component={AccidentsPage} />
-            <Route exact path="/healthcare" component={HealthcarePage} />
-            <Route exact path="/add-members/:groupId" component={AddMembersPage} />
-            <Route exact path="/">
-              <Redirect to="/login" />
-            </Route>
+            <Route exact path="/cambiar-password" component={CambiarPassword} />
+            <Route exact path="/" component={SessionChecker} />
+
+            {/* Privadas */}
+            {isAuthenticated() ? (
+              <>
+                <Route exact path="/home" component={HomePage} />
+                <Route exact path="/profile" component={ProfilePage} />
+                <Route exact path="/edit-profile" component={EditProfilePage} />
+                <Route exact path="/groups" component={GroupsPage} />
+                <Route exact path="/crear-grupo" component={CrearGrupoPage} />
+                <Route exact path="/group-details/:id" component={GroupDetailsPage} />
+                <Route exact path="/chat/:usuario" component={PrivateChat} />
+                <Route exact path="/emergency" component={EnviarEmergencia} />
+                <Route exact path="/eliminar-grupos" component={EliminarGrupos} />
+                <Route exact path="/add-members/:groupId" component={AddMembersPage} />
+                <Route exact path="/accidents" component={AccidentsPage} />
+                <Route exact path="/accident/:id" component={AccidentDetails} />
+                <Route exact path="/healthcare" component={HealthcarePage} />
+              </>
+            ) : (
+              <>
+                {/* Redirección a login si intenta acceder a rutas protegidas sin sesión */}
+                <Route path="*">
+                  <Redirect to="/" />
+                </Route>
+              </>
+            )}
+
           </IonRouterOutlet>
         </IonTabs>
       </IonReactRouter>

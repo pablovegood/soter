@@ -4,7 +4,6 @@ import {
   IonContent,
   IonInput,
   IonButton,
-  IonToast,
   IonSelect,
   IonSelectOption,
   IonIcon,
@@ -23,6 +22,9 @@ import { createClient } from '@supabase/supabase-js';
 import './Register.css';
 import './Global.css';
 import logo from './images/logo-soter.png';
+
+import { useIonViewWillEnter } from '@ionic/react';
+
 
 const supabase = createClient(
   'https://vovrdtlrfiextltvpdpc.supabase.co',
@@ -44,6 +46,33 @@ const RegisterPage: React.FC = () => {
   const [success, setSuccess] = useState(false);
   const [showCalendar, setShowCalendar] = useState(false);
   const [loading, setLoading] = useState(false);
+
+React.useEffect(() => {
+  if (success) {
+    const timer = setTimeout(() => setSuccess(false), 2000); // 2 segundos
+    return () => clearTimeout(timer);
+  }
+}, [success]);
+
+useIonViewWillEnter(() => {
+  // Limpiar campos
+  setNickname('');
+  setNombre('');
+  setApellidos('');
+  setCorreo('');
+  setFecha('');
+  setDomicilio('');
+  setPrefijo('+34');
+  setTelefono('');
+  setPassword('');
+  setRepeatPassword('');
+
+  // Limpiar mensajes
+  setError('');
+  setSuccess(false);
+});
+
+
 
   const handleRegister = async () => {
     if (!nickname || !nombre || !apellidos || !password || !repeatPassword || !fecha || !domicilio || !telefono || !correo) {
@@ -173,8 +202,17 @@ const RegisterPage: React.FC = () => {
             Volver a iniciar sesión
           </IonButton>
 
-          <IonToast isOpen={!!error} message={error} duration={3000} color="danger" onDidDismiss={() => setError('')} />
-          <IonToast isOpen={success} message="Usuario registrado con éxito" duration={2000} color="success" />
+                 {error && (
+          <div className="custom-error-alert">
+            {error}
+          </div>
+        )}
+         {success && (
+  <div className="custom-success-alert">
+    Usuario registrado con éxito
+  </div>
+)}
+
         </div>
       </IonContent>
     </IonPage>
