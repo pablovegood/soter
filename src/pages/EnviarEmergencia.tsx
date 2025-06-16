@@ -5,6 +5,7 @@ import {
   IonButton,
   IonCheckbox,
   IonLabel,
+  IonToast,
 } from '@ionic/react';
 import { useHistory } from 'react-router-dom';
 import './Global.css';
@@ -16,12 +17,10 @@ const supabase = createClient(
   'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InZvdnJkdGxyZmlleHRsdHZwZHBjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDMzNTU5ODcsImV4cCI6MjA1ODkzMTk4N30.pBgPNcysidTyqpOP5900Szt4wF2It0i7SbJAUkN36NI'
 );
 
-const ZONAS = [
-  'Cabeza', 'Cuello', 'Espalda', 'Cadera', 'Codos', 'Rodillas', 'Tobillos'
-];
+const ZONAS = ['Cabeza', 'Cuello', 'Espalda', 'Cadera', 'Codos', 'Rodillas', 'Tobillos'];
 
 const obtenerUbicacionYDireccion = async () => {
-  return new Promise<{ lat: number; lng: number; direccion: string }>((resolve, reject) => {
+  return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(
       async (pos) => {
         const lat = pos.coords.latitude;
@@ -48,10 +47,40 @@ const obtenerUbicacionYDireccion = async () => {
 
 const EnviarEmergencia: React.FC = () => {
   const [tiempoRestante, setTiempoRestante] = useState(15);
+  const [tiempoPersonalizado, setTiempoPersonalizado] = useState(15);
   const [zonaSeleccionada, setZonaSeleccionada] = useState('');
   const [gravedad, setGravedad] = useState<number>(0);
+  const [accesoPermitido, setAccesoPermitido] = useState<boolean | null>(null);
+  const [toastMessage, setToastMessage] = useState('');
+  const [toastColor, setToastColor] = useState<'success' | 'danger'>('danger');
   const history = useHistory();
   const haEnviadoRef = useRef(false);
+
+  useEffect(() => {
+    const verificarAcceso = async () => {
+      const user = JSON.parse(localStorage.getItem('user') || '{}');
+      const nickname = user.nickname;
+
+      const { data: grupos } = await supabase
+        .from('grupo')
+        .select('id')
+        .eq('protegido', nickname);
+
+      if (!grupos || grupos.length === 0) {
+        setAccesoPermitido(false);
+        setToastColor('danger');
+        setToastMessage('Debes pertenecer a un grupo como protegido. Pide a una persona de confianza que te añada.');
+      } else {
+        setAccesoPermitido(true);
+      }
+    };
+
+    verificarAcceso();
+
+    const guardado = parseInt(localStorage.getItem('tiempoCuentaAtras') || '15');
+    setTiempoRestante(guardado);
+    setTiempoPersonalizado(guardado);
+  }, []);
 
   useEffect(() => {
     const intervalo = setInterval(() => {
@@ -69,7 +98,13 @@ const EnviarEmergencia: React.FC = () => {
       });
     }, 1000);
     return () => clearInterval(intervalo);
-  }, []);
+  }, [tiempoPersonalizado]);
+
+  const cambiarTiempo = (nuevoTiempo: number) => {
+    setTiempoPersonalizado(nuevoTiempo);
+    setTiempoRestante(nuevoTiempo);
+    localStorage.setItem('tiempoCuentaAtras', nuevoTiempo.toString());
+  };
 
   const enviarSMS = async (nivelGravedad: number) => {
     const user = JSON.parse(localStorage.getItem('user') || '{}');
@@ -92,7 +127,8 @@ const EnviarEmergencia: React.FC = () => {
       .eq('protegido', nickname);
 
     if (!gruposProtegido || gruposProtegido.length === 0) {
-      console.error('No se encontró grupo como protegido');
+      setToastColor('danger');
+      setToastMessage('Debes pertenecer a un grupo como protegido.');
       return;
     }
 
@@ -118,10 +154,16 @@ const EnviarEmergencia: React.FC = () => {
       return;
     }
 
-    const mensaje = `🚨 EMERGENCIA 🚨\nNombre: ${usuario.nombre} ${usuario.apellidos}\nZona afectada: ${zonaSeleccionada || 'No especificado'}\nGravedad: ${nivelGravedad}/5\nUbicación: https://maps.google.com/?q=${lat},${lng}`;
+    const zona = zonaSeleccionada || 'No especificado';
+    const gravedadFinal = gravedad || 5;
+
+    const mensaje = `EMERGENCIA \nNombre: ${usuario.nombre} ${usuario.apellidos}\nZona afectada: ${zona}\nGravedad: ${nivelGravedad}/5\nUbicacion: https://maps.google.com/?q=${lat},${lng}`;
 
     for (const miembro of miembros) {
-      const telefono = miembro.usuario && Array.isArray(miembro.usuario) ? miembro.usuario[0]?.telefono : miembro.usuario?.telefono;
+      const telefono = miembro.usuario && Array.isArray(miembro.usuario)
+        ? miembro.usuario[0]?.telefono
+        : miembro.usuario?.telefono;
+
       if (telefono) {
         const data = new URLSearchParams();
         data.append('from', 'Vonage APIs');
@@ -130,7 +172,7 @@ const EnviarEmergencia: React.FC = () => {
         data.append('api_key', '3d1e9e87');
         data.append('api_secret', 'evuNV3MXIZomkku3');
 
-       /* try {
+        try {
           const response = await fetch('https://rest.nexmo.com/sms/json', {
             method: 'POST',
             headers: {
@@ -140,30 +182,48 @@ const EnviarEmergencia: React.FC = () => {
           });
 
           const result = await response.json();
-          console.log('📤 Resultado Vonage:', result);
+          console.log('Resultado Vonage:', result);
         } catch (err) {
-          console.error('❌ Error al enviar con Vonage:', err);
-        }*/
+          console.error('Error al enviar con Vonage:', err);
+        }
       }
     }
 
-    const { error } = await supabase.from('accidente').insert({
+    await supabase.from('accidente').insert({
       persona: nickname,
-      gravedad: nivelGravedad,
-      zona: zonaSeleccionada,
+      gravedad: gravedadFinal,
+      zona,
       fecha: new Date().toISOString(),
       latitud: lat,
       longitud: lng,
-      lugar: direccion
+      lugar: direccion,
     });
 
-    if (error) {
-      console.error('Error al registrar el accidente:', error);
-    }
-
-    alert('SMS enviado con Vonage y accidente registrado.');
+    setToastColor('success');
+    setToastMessage('Emergencia enviada correctamente');
     history.push('/home');
   };
+
+  if (accesoPermitido === false) {
+    return (
+      <IonPage>
+        <IonContent className="emergencia-content">
+          <div className="page-top-spacer"></div>
+          <h2 className="titulo-emergencia">Acceso denegado</h2>
+          <IonButton className="cancel-button" onClick={() => history.push('/home')}>
+            Volver
+          </IonButton>
+          <IonToast
+            isOpen={!!toastMessage}
+            message={toastMessage}
+            duration={3000}
+            color={toastColor}
+            onDidDismiss={() => setToastMessage('')}
+          />
+        </IonContent>
+      </IonPage>
+    );
+  }
 
   return (
     <IonPage>
@@ -178,9 +238,10 @@ const EnviarEmergencia: React.FC = () => {
             onClick={() => {
               if (!haEnviadoRef.current) {
                 haEnviadoRef.current = true;
-                enviarSMS(gravedad);
+                enviarSMS(gravedad || 5);
               }
             }}
+            disabled={accesoPermitido !== true}
           >
             ENVIAR SMS
           </IonButton>
@@ -216,6 +277,32 @@ const EnviarEmergencia: React.FC = () => {
             ))}
           </div>
         </div>
+
+        <p className="sos-title">----------------------------------</p>
+        <div className="selector-tiempo">
+          <IonLabel><strong>Duración del temporizador:</strong></IonLabel>
+          <div className="botones-tiempo">
+            {[5, 10, 15, 20, 25, 30].map((seg) => (
+              <IonButton
+                key={seg}
+                size="small"
+                className={`boton-tiempo ${tiempoPersonalizado === seg ? 'activo' : ''}`}
+                onClick={() => cambiarTiempo(seg)}
+              >
+                {seg}s
+              </IonButton>
+            ))}
+          </div>
+        </div>
+
+        <IonToast
+          isOpen={!!toastMessage}
+          message={toastMessage}
+          duration={3000}
+          color={toastColor}
+          onDidDismiss={() => setToastMessage('')}
+        />
+        <div className="page-top-spacer"></div>
       </IonContent>
     </IonPage>
   );
