@@ -19,12 +19,13 @@ import HealthcarePage from './pages/Healthcare';
 import PrivateChat from './pages/PrivateChat';
 import EnviarEmergencia from './pages/EnviarEmergencia';
 import EliminarGrupos from './pages/EliminarGrupos';
-import CambiarPassword from './pages/CambiarPassword';
 import AddMembersPage from './pages/AddMembers';
 import AccidentsPage from './pages/Accidents';
 import AccidentDetails from './pages/AccidentDetails';
 import SessionChecker from './pages/SessionChecker';
-
+import RemoveMembers from './pages/RemoveMembers';
+import AddAdmins from './pages/AddAdmins';
+import GroupChat from './pages/GroupChat';
 
 import { App as CapacitorApp } from '@capacitor/app';
 
@@ -40,15 +41,14 @@ CapacitorApp.addListener('appUrlOpen', async ({ url }) => {
   }
 });
 
-/* Core CSS required for Ionic components to work properly */
+
 import '@ionic/react/css/core.css';
 
-/* Basic CSS for apps built with Ionic */
 import '@ionic/react/css/normalize.css';
 import '@ionic/react/css/structure.css';
 import '@ionic/react/css/typography.css';
 
-/* Optional CSS utils that can be commented out */
+
 import '@ionic/react/css/padding.css';
 import '@ionic/react/css/float-elements.css';
 import '@ionic/react/css/text-alignment.css';
@@ -58,15 +58,14 @@ import '@ionic/react/css/display.css';
 
 import '@ionic/react/css/palettes/dark.system.css';
 
-/* Theme variables */
+
 import './theme/variables.css';
 
-/* Custom styles */
+
 import './App.css';
 
 setupIonicReact();
 
-/* 🔒 Protección de rutas privadas */
 const isAuthenticated = () => {
   const user = localStorage.getItem('user');
   return user !== null;
@@ -83,7 +82,6 @@ const App: React.FC = () => (
             
             <Route exact path="/login" component={LoginPage} />
             <Route exact path="/register" component={RegisterPage} />
-            <Route exact path="/cambiar-password" component={CambiarPassword} />
             <Route exact path="/" component={SessionChecker} />
 
             {/* Privadas */}
@@ -95,17 +93,21 @@ const App: React.FC = () => (
                 <Route exact path="/groups" component={GroupsPage} />
                 <Route exact path="/crear-grupo" component={CrearGrupoPage} />
                 <Route exact path="/group-details/:id" component={GroupDetailsPage} />
-                <Route exact path="/chat/:usuario" component={PrivateChat} />
+                <Route exact path="/group-details/:id/chat/:nickname" component={PrivateChat} />
                 <Route exact path="/emergency" component={EnviarEmergencia} />
                 <Route exact path="/eliminar-grupos" component={EliminarGrupos} />
-                <Route exact path="/add-members/:groupId" component={AddMembersPage} />
+                <Route path="/add-members/:id" component={AddMembersPage} />
                 <Route exact path="/accidents" component={AccidentsPage} />
                 <Route exact path="/accident/:id" component={AccidentDetails} />
                 <Route exact path="/healthcare" component={HealthcarePage} />
+                <Route path="/remove-members/:id" component={RemoveMembers} exact />
+                <Route path="/add-admins/:id" component={AddAdmins} exact />
+                <Route path="/group-chat/:id" component={GroupChat} />
+
+
               </>
             ) : (
-              <>
-                {/* Redirección a login si intenta acceder a rutas protegidas sin sesión */}
+              <>    
                 <Route path="*">
                   <Redirect to="/" />
                 </Route>
