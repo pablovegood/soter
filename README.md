@@ -7,7 +7,7 @@
 
 **Soter** es una aplicación móvil diseñada para enviar avisos de caídas en personas mayores y alertar a familiares, cuidadores o personas de confianza mediante mensajes de emergencia (SMS) y notificaciones, facilitando así una intervención rápida.
 
-En el repositorio podréis encontrar el manual de uso, el código fuente y una apk con la versión más reciente de la aplicación.
+En el repositorio podréis encontrar el manual de uso, el código fuente y una APK con la versión más reciente de la aplicación.
 
 ---
 
