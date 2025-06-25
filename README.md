@@ -1,6 +1,8 @@
-SOTER – Sistema de Alerta Temprana ante Caídas
+# SOTER – Sistema de Alerta Temprana ante Caídas
 
-![Captura_de_pantalla_2025-05-02_034250-removebg-preview](https://github.com/user-attachments/assets/0f19f02a-8c01-4cb8-a0ef-f121c4c40d06)
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/0f19f02a-8c01-4cb8-a0ef-f121c4c40d06" alt="SOTER Logo" width="300"/>
+</p>
 
 
 **Soter** es una aplicación móvil diseñada para enviar avisos de caídas en personas mayores y alertar a familiares, cuidadores o personas de confianza mediante mensajes de emergencia (SMS) y notificaciones, facilitando así una intervención rápida.
@@ -58,7 +60,7 @@ Luego compila desde Android Studio.
 
 # 🤝 Colaboración
 
-¿Quieres contribuir al desarrollo de Soter? ¡Eres bienvenido! Aquí te dejamos cómo empezar:
+¿Quieres contribuir al desarrollo de Soter? ¡Eres bienvenido! Aquí tienes cómo empezar:
 
 1. Haz un fork del repositorio
 2. Crea tu rama (`git checkout -b feature/nueva-funcionalidad`)
@@ -78,5 +80,5 @@ Este proyecto está bajo la licencia MIT.
 ## 📞 Contacto
 
 Creado por **Pablo García Alvarado**  
-📧 [pablog.alvarado22@gmail.com]  
+📧 pablog.alvarado22@gmail.com
 📍 Universidad de Granada
