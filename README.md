@@ -1,10 +1,15 @@
-# 🛡️ SOTER – Sistema de Alerta Temprana ante Caídas
+SOTER – Sistema de Alerta Temprana ante Caídas
+
+![Captura_de_pantalla_2025-05-02_034250-removebg-preview](https://github.com/user-attachments/assets/0f19f02a-8c01-4cb8-a0ef-f121c4c40d06)
+
 
 **Soter** es una aplicación móvil diseñada para enviar avisos de caídas en personas mayores y alertar a familiares, cuidadores o personas de confianza mediante mensajes de emergencia (SMS) y notificaciones, facilitando así una intervención rápida.
 
+En el repositorio podréis encontrar el manual de uso, el código fuente y una apk con la versión más reciente de la aplicación.
+
 ---
 
-## 🚀 Características principales
+# 🚀 Características principales
 
 - 📍 Geolocalización automática al mandar el aviso de una caída.
 - 📤 Envío de SMS con la ubicación a los contactos de confianza.
@@ -14,7 +19,7 @@
 
 ---
 
-## 🛠️ Tecnologías utilizadas
+# 🛠️ Tecnologías utilizadas
 
 - **Frontend:** React + Ionic + Capacitor
 - **Backend:** Supabase (Auth, DB, Storage)
@@ -22,16 +27,16 @@
 
 ---
 
-## 📦 Instalación
+# 📦 Instalación
 
-### 🔧 Requisitos
+## 🔧 Requisitos
 
 - Node.js ≥ 18.x
 - npm
 - Android Studio (para pruebas en Android)
 - Cuenta en Supabase + Vonage
 
-### ⚙️ Clonar el repositorio
+## ⚙️ Clonar el repositorio
 
 ```bash
 git clone https://github.com/pablovegood/soter.git
@@ -40,7 +45,7 @@ npm install
 ```
 
 
-### 📱 Ejecutar en Android
+## 📱 Ejecutar en Android
 
 ```bash
 npx cap sync android
@@ -51,7 +56,7 @@ Luego compila desde Android Studio.
 
 ---
 
-## 🤝 Colaboración
+# 🤝 Colaboración
 
 ¿Quieres contribuir al desarrollo de Soter? ¡Eres bienvenido! Aquí te dejamos cómo empezar:
 
@@ -64,7 +69,7 @@ Luego compila desde Android Studio.
 
 ---
 
-## 📘 Licencia
+# 📘 Licencia
 
 Este proyecto está bajo la licencia MIT.
 
